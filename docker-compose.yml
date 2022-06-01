@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+    web:
+        container_name: glpi
+        build: .
+        restart: always
+        ports:
+            - 8080:80
+        volumes:
+            - ./www:/var/www/html
+            - ./apacheconf/default.conf:/etc/apache2/sites-enabled/000-default.conf
+        networks:
+            - default
+    db:
+        image: mysql:5.7
+        restart: always
+        ports:
+            - 3306:3306
+        environment:
+            MYSQL_DATABASE: glpi
+            MYSQL_USER: glpi
+            MYSQL_PASSWORD: glpi
+            MYSQL_ROOT_PASSWORD: glpi
+        volumes:
+            - db_data:/var/lib/mysql
+        networks:
+            - default
+
+volumes:
+    db_data:
