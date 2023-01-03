@@ -1,32 +1,36 @@
 version: "3"
 
 services:
-    web:
-        container_name: glpi
-        build: .
-        restart: always
-        ports:
-            - 8086:80
-        volumes:
-            - ./www:/var/www/html
-            - ./apacheconf/default.conf:/etc/apache2/sites-enabled/000-default.conf
-        networks:
-            - default
-    db:
-        image: mysql:5.7
-        container_name: glpi_bd_mysql
-        restart: always
-        ports:
-            - 3306:3306
-        environment:
-            MYSQL_DATABASE: glpi
-            MYSQL_USER: glpi
-            MYSQL_PASSWORD: glpi
-            MYSQL_ROOT_PASSWORD: glpi
-        volumes:
-            - db_data:/var/lib/mysql
-        networks:
-            - default
+  web:
+    container_name: glpi10
+    build: .
+    restart: always
+    ports:
+      - 8080:80
+    volumes:
+      - ./glpi10:/var/www/glpi
+      - ./docker/apache/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+    networks:
+      - glpi
+  db:
+    image: mysql:5.7
+    container_name: glpi_db
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: glpi
+      MYSQL_USER: glpi
+      MYSQL_PASSWORD: glpi
+      MYSQL_ROOT_PASSWORD: glpi
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - glpi
 
 volumes:
-    db_data:
+  db_data:
+
+networks:
+  glpi:
+    driver: bridge

@@ -1,9 +1,5 @@
 FROM php:7.4-apache
 
-LABEL maintainer="Coordenadoria de Tecnologia da Informação da Controladoria Geral do Estado do Amapá (CTEC/CGEAP)"
-
-WORKDIR /var/www/html
-
 RUN echo "Atualizando dependências do sistema"
 RUN apt-get update
 
@@ -31,5 +27,13 @@ RUN echo "Falta instalar exif, ldap, bz2"
 #     && docker-php-ext-enable  ldap \
 #     && apk del .build-dependencies-in-virtual-world
 # RUN docker-php-ext-enable ldap opcache'
+
+COPY ./docker/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY ./docker/apache/start-apache /usr/local/bin
+
+RUN rm -rf /var/www/html
+RUN mkdir /var/www/glpi
+WORKDIR /var/www/glpi
+COPY ./glpi10 /var/www/glpi/
 
 # CMD [ "php", "./your-script.php" ]
