@@ -21,6 +21,12 @@ Acesse o diretório do projeto
 cd glpi10-docker-image
 ```
 
+Copie o arquivo **.env.example** renomeando-o para **.env** e altere o valor das variáveis de acordo com as credenciais da sua base de dados (usuário, senha, porta, etc).
+
+```
+cp .env.example .env
+```
+
 Execute o comando
 
 ```
