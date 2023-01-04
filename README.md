@@ -33,7 +33,7 @@ Execute o comando
 docker-compose up -d
 ```
 
-## Instalando o GLPI
+## Instalando o GLPI pelo Navegador
 
 Faça o download do GLPI (versão 10) no [site oficial](https://glpi10.com.br/). Descompacte o conteúdo do arquivo baixado e copie-o para dentro da pasta **glpi10** do projeto.
 
@@ -84,6 +84,36 @@ A tela seguinte exibe informações sobre usuários e senhas criados por padrão
 A última tela exibe o formulário de login ao qual você pode entrar usando qualquer umas credenciais exibidas anteriormente. E como recomendado anteriormente, crie outros usuários para acessar o sistema.
 
 <img src="doc/images/setup11.png">
+
+## Instalando o GLPI pelo Terminal
+
+Outra alterantiva para instalar o GLPI é por meio da **Command Line Tools** que fornece várias opções de instalação e configuração por meio de comandos no terminal. Para saber mais sobre as opções de instalação pela linha de comando acesse a [documentação oficial](https://glpi-install.readthedocs.io/en/latest/command-line.html#cdline-install)
+
+Acesse o container executando o comando a seguir.
+
+```
+docker exec -it glpi10 bash
+```
+
+Dentro do container execute o comando a seguir para certificar-se de seu ambiente preenche todos os requisitos necessários para uma instalação bem sucedida.
+
+```
+php bin/console glpi:system:check_requirements
+```
+
+<img src="doc/images/setup12.png">
+
+Para facilitar o processo de instalação por meio do terminal foi criado um script de instalação. Se estiver tudo ok execute o script de instalação.
+
+```
+install.sh
+```
+
+Também é possível executar o script de instalação sem ser necessário entrar no container, basta executar o comando a seguir.
+
+```
+docker exec -it glpi10 bash install.sh
+```
 
 ## Usuários e Senhas Padrão
 

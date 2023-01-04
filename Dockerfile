@@ -23,19 +23,19 @@ RUN docker-php-ext-enable exif
 RUN echo "Habilitando LDAP"
 RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/
 RUN docker-php-ext-install ldap
-# RUN apk update \
-#     && apk add --no-cache --virtual .build-dependencies-in-virtual-world openldap-dev \
-#     && docker-php-ext-install ldap \
-#     && docker-php-ext-enable  ldap \
-#     && apk del .build-dependencies-in-virtual-world
-# RUN docker-php-ext-enable ldap opcache'
 
+COPY ./docker/install.sh /usr/local/bin
 COPY ./docker/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY ./docker/apache/start-apache /usr/local/bin
+COPY ./docker/php/php.ini-development /usr/local/etc/php/php.ini-development
+COPY ./docker/php/php.ini-production /usr/local/etc/php/php.ini-production
 
 RUN rm -rf /var/www/html
 RUN mkdir /var/www/glpi
 WORKDIR /var/www/glpi
 COPY ./glpi10 /var/www/glpi/
+
+RUN chmod 777 /var/www/glpi/files
+RUN chmod 777 /var/www/glpi/config
 
 # CMD [ "php", "./your-script.php" ]

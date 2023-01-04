@@ -10,8 +10,8 @@ services:
     volumes:
       - ./glpi10:/var/www/glpi
       - ./docker/apache/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
-      #- ./docker/php/php.ini-development:/usr/local/etc/php/php.ini-development
-      #- ./docker/php/php.ini-production:/usr/local/etc/php/php.ini-production
+      - ./docker/php/php.ini-development:/usr/local/etc/php/php.ini-development
+      - ./docker/php/php.ini-production:/usr/local/etc/php/php.ini-production
     networks:
       - glpi
   db:
